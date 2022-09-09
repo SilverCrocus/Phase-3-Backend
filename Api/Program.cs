@@ -1,5 +1,7 @@
 using System.Reflection;
 using Api.Infrastructure.Persistence.Contexts;
+using Api.Services.Validation.Behavior;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<SqlDbContext>(options =>
 // Add services to the container.
 var assembly = AppDomain.CurrentDomain.Load("Api.Services");
 builder.Services.AddMediatR(assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddMemoryCache();
 
