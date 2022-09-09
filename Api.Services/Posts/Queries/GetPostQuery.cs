@@ -1,6 +1,7 @@
 ﻿using Api.Domain.Posts;
 using Api.Infrastructure.Persistence.Contexts;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Api.Services.Posts.Queries;
 
@@ -17,16 +18,31 @@ public class GetPostQuery : IRequest<Post>
 public class GetPostHandler : IRequestHandler<GetPostQuery, Post>
 {
     private readonly SqlDbContext _context;
+    private readonly IMemoryCache _cache;
 
-    public GetPostHandler(SqlDbContext context)
+    public GetPostHandler(SqlDbContext context, IMemoryCache cache)
     {
         _context = context;
+        _cache = cache;
     }
 
     public async Task<Post> Handle(GetPostQuery request, CancellationToken cancellationToken)
     {
-        var post = await _context.Post.FindAsync(request._id);
-        
+        if (_cache.TryGetValue(request._id, out Post post))
+        {
+            return post;
+        }
+
+        post = await _context.Post.FindAsync(request._id);
+            
+        var cacheEntryOptions = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromSeconds(60))
+            .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
+            .SetPriority(CacheItemPriority.Normal)
+            .SetSize(1024);
+            
+        _cache.Set(request._id, post, cacheEntryOptions);
+
         if (post == null)
         {
             throw new Exception("Post not found");

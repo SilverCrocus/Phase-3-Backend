@@ -12,6 +12,8 @@ builder.Services.AddDbContext<SqlDbContext>(options =>
 var assembly = AppDomain.CurrentDomain.Load("Api.Services");
 builder.Services.AddMediatR(assembly);
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
