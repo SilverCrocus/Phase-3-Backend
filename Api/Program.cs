@@ -48,7 +48,7 @@ app.MapControllers();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<PostEventsClientHub>("/test");
+    endpoints.MapHub<PostEventsClientHub>("/new-posts");
 });
 
 app.Run();
