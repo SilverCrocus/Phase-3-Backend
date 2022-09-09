@@ -17,7 +17,7 @@ public class PostsController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [HttpGet]
     public async Task<ActionResult> GetPosts()
     {
