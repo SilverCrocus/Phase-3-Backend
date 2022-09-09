@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{FF62EF9B-161D-465E-99BD-4465EADEB2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AppServices", "Api.AppServices\Api.AppServices.csproj", "{3B2E8C20-3254-4040-BF22-6C792E05E57E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Services", "Api.Services\Api.Services.csproj", "{3B2E8C20-3254-4040-BF22-6C792E05E57E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Infrastructure", "Api.Infrastructure\Api.Infrastructure.csproj", "{D7612D86-DC22-4ADF-AF60-042F53E4527A}"
 EndProject
